@@ -15,10 +15,3 @@ This is a [Terraform](https://terraform.io) module that will provision a single 
 | assign_public_ip      | If set to 'true', the instance will be assigned a public IP. Defaults to 'true'. |
 | instance_type         | The AWS [Instance Type](https://aws.amazon.com/ec2/instance-types/) to use when provisioning the instance. Defaults to 't3.small'. |
 | manifest_bucket_path  | The AWS S3 bucket name and path that will be used to download manifest files for auto-installation as per [this documentation](https://rancher.com/docs/k3s/latest/en/advanced/). Should be specified as 'bucket name/folder name/'. The IAM Role assigned to the instance must have GetObject access to this bucket. |
-
-## Example
-
-```terraform
-module k3s {
-    
-}
