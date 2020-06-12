@@ -6,8 +6,8 @@ This is a [Terraform](https://terraform.io) module that will provision a single 
 
 | Variable Name         | Description                                                                   |
 ------------------------|-------------------------------------------------------------------------------|
-| aws_region            | The AWS Region where resources will be deployed. Defaults to 'us-east-2'.     |
-| keypair_path          | The path to the SSH public key file that will be used for access to the instance. |
+| keypair_path          | The path to the SSH public key file that will be used for access to the instance. If this is specified, the value of `keypair_content` is ignored. |
+| keypair_content          | The content to be used for creating the SSH public key for the instance. If this is specified, `keypair_path` must not be. |
 | deployment_name       | A unique name used to generate things like the instance name.                 |
 | iam_role_name         | The name of an existing IAM role to assign to the instance profile. If left blank, no role will be assigned. |
 | subnet_id             | The ID of the subnet where the instance will be provisioned. If left blank, it will be provisioned in the default subnet of the default VPC. |

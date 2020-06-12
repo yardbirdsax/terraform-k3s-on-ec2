@@ -1,11 +1,13 @@
-variable aws_region {
-    type = string
-    default = "us-east-2"
-}
-
 variable keypair_path {
     type = string
-    default = "~/.ssh/id_rsa.pub"
+    default = ""
+    description = "The path to the public key to use for the instance."
+}
+
+variable keypair_content {
+    type = string
+    default = ""
+    description = "The raw data to be used for the public key for the instance. If this is used, no value must be specified for 'keypair_path'."
 }
 
 variable deployment_name {
@@ -28,8 +30,7 @@ variable subnet_id {
 
 variable security_group_ids {
     type = list(string)
-    default = ["default"]
-    description = "A list of Security Group IDs to assign to the instance. If left blank, none will be assigned."
+    description = "A list of Security Group IDs to assign to the instance."
 }
 
 variable assign_public_ip {

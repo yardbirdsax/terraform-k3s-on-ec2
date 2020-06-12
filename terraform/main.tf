@@ -1,7 +1,3 @@
-provider aws {
-    region = var.aws_region
-}
-
 data aws_ami "ubuntu" {
   most_recent = true
 
@@ -14,7 +10,7 @@ data aws_ami "ubuntu" {
 
 resource aws_key_pair k3s_keypair {
   key_name = var.deployment_name
-  public_key = file(var.keypair_path)
+  public_key = var.keypair_path == "" ? var.keypair_content : file(var.keypair_path)
 }
 
 resource aws_iam_instance_profile instance_profile {
