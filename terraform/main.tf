@@ -34,7 +34,7 @@ EOF
 #!/bin/bash
 curl -sfL https://get.k3s.io | sh -
 apt-get update && \
-apt-get install awscli
+apt-get install awscli -y
 EOF
     content_type = "text/x-shellscript"
   }
@@ -45,6 +45,15 @@ EOF
 aws s3 sync s3://${var.manifest_bucket_path} /var/lib/rancher/k3s/server/manifests/
 EOF
   content_type = "text/x-shellscript"  
+  }
+
+  part {
+    content = <<EOF
+#!/bin/bash
+apt-get update && \
+apt-get install ec2-instance-connect -y
+EOF
+    content_type = "text/x-shellscript"
   }
 }
 
