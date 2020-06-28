@@ -8,6 +8,11 @@ data aws_ami "ubuntu" {
   owners = ["099720109477"]
 }
 
+resource random_string agent_token { 
+  length = 24
+  special = false
+}
+
 resource aws_key_pair k3s_keypair {
   key_name = var.deployment_name
   public_key = var.keypair_path == "" ? var.keypair_content : file(var.keypair_path)
@@ -32,7 +37,7 @@ EOF
   part {
     content = <<EOF
 #!/bin/bash
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | K3S_TOKEN=${random_string.agent_token.result} sh - 
 apt-get update && \
 apt-get install awscli -y
 EOF
