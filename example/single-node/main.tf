@@ -57,3 +57,7 @@ module k3s {
   security_group_ids = [ aws_security_group.sg.id ]
   
 }
+
+output k3s_master_public_dns {
+  value = module.k3s.instance.public_dns
+}
