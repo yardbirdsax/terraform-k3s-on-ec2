@@ -9,3 +9,4 @@
 # Un-released
 
 - [EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html) is now installed on the Master node.
+- By setting the value of the new `enable_worker_nodes` variable to `true`, a separate Auto-Scaling Group will be provisioned that will house worker nodes. **This functionality is very new and has numerous limitations. Please make sure you read the appropriate section of the [Readme file](README.md#Worker-Node-Autoscaling-Group-Feature) for details.**
