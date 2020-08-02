@@ -28,7 +28,7 @@ Currently the module allows for the provisioning of a separate autoscaling group
 * The worker-node instances will be assigned to the same security group(s) as the master node.
 * The worker-node instances will be assigned to the same instance profile as the master node.
 * The worker-node instances will be the same Instance Type as the master node.
-* The worker-node instances can not be assigned public IPs.
+* The worker-node instances will be assigned public IPs if the master node is.
 
 It is the intention to enhance the module over time to allow more granular control of the worker nodes, such as assigning different Instance Profiles, multiple subnets, etc.
 
