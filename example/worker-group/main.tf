@@ -55,7 +55,10 @@ module k3s {
   instance_type = "t3a.small"
   keypair_content = module.ssh_key_pair.public_key
   security_group_ids = [ aws_security_group.sg.id ]
-  
+  enable_worker_nodes = true
+  worker_node_min_count = 1
+  worker_node_max_count = 3
+  worker_node_desired_count = 2
 }
 
 output k3s_master_public_dns {
