@@ -8,14 +8,6 @@ apt-get install awscli -y
 EOF
     content_type = "text/x-shellscript"
   }
-  
-  part {
-    content = var.manifest_bucket_path == "" ? "" : <<EOF
-#!/bin/bash
-aws s3 sync s3://${var.manifest_bucket_path} /var/lib/rancher/k3s/server/manifests/
-EOF
-  content_type = "text/x-shellscript"  
-  }
 }
 
 resource aws_launch_template agent_launch_template {
