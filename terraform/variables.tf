@@ -50,3 +50,27 @@ variable manifest_bucket_path {
     default = ""
     description = "The AWS S3 bucket name and path that will be used to download manifest files for auto-installation as per [this documentation](https://rancher.com/docs/k3s/latest/en/advanced/). Should be specified as 'bucket name/folder name/'. The IAM Role assigned to the instance must have GetObject access to this bucket."
 }
+
+variable enable_worker_nodes {
+    type = bool
+    description = "If set to 'true', a separate autoscaling group will be created for worker nodes."
+    default = false
+}
+
+variable worker_node_min_count {
+    type = number
+    description = "The minimum number of worker node instances to provision."
+    default = 0
+}
+
+variable worker_node_max_count {
+    type = number
+    description = "The maximum number of worker node instances to provsion."
+    default = 0
+}
+
+variable worker_node_desired_count {
+    type = number
+    description = "The desired number of worker nodes to provision." 
+}
+
