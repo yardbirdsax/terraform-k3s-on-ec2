@@ -1,4 +1,4 @@
-data template_cloudinit_config "agent_user_data" {
+data cloudinit_config "agent_user_data" {
   part {
     content = <<EOF
 #!/bin/bash
@@ -22,7 +22,7 @@ resource aws_launch_template agent_launch_template {
   instance_type = var.instance_type
   key_name = aws_key_pair.k3s_keypair.key_name
   vpc_security_group_ids = var.security_group_ids
-  user_data = data.template_cloudinit_config.agent_user_data.rendered
+  user_data = data.cloudinit_config.agent_user_data.rendered
 }
 
 resource aws_autoscaling_group agent_autoscaling_group { 

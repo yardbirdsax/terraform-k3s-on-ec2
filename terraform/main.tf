@@ -24,7 +24,7 @@ resource aws_iam_instance_profile instance_profile {
   count = var.iam_role_name == null ? 0 : 1
 }
 
-data template_cloudinit_config "userData" {
+data cloudinit_config "userData" {
   part {
     content = <<EOF
 #cloud-config
@@ -70,7 +70,7 @@ resource aws_instance k3s_instance {
   iam_instance_profile = var.iam_role_name == null ? null : aws_iam_instance_profile.instance_profile[0].name
   subnet_id = var.subnet_id == "" ? "" : var.subnet_id
   vpc_security_group_ids = var.security_group_ids
-  user_data = data.template_cloudinit_config.userData.rendered
+  user_data = data.cloudinit_config.userData.rendered
 }
 
 output instance {
