@@ -9,7 +9,7 @@ This is a [Terraform](https://terraform.io) module that will provision a single 
 | keypair_path          | The path to the SSH public key file that will be used for access to the instances. If this is specified, the value of `keypair_content` is ignored. |
 | keypair_content          | The content to be used for creating the SSH public key for the instances. If this is specified, `keypair_path` must not be. |
 | deployment_name       | A unique name used to generate things like the instance names.                 |
-| iam_role_name         | The name of an existing IAM role to assign to the instance profiles. If left blank, no role will be assigned. |
+| iam_role_name         | The name of an existing IAM role to assign to the instance profiles. If set to `null`, no role will be assigned. |
 | subnet_id             | The ID of the subnet where the instances will be provisioned. If left blank, it will be provisioned in the default subnet of the default VPC. |
 | security_group_ids    | A list of IDs of Security Groups that the instances should be assigned to.     |
 | assign_public_ip      | If set to `true`, the instances will be assigned a public IP. Defaults to `true`. |

@@ -18,7 +18,7 @@ variable deployment_name {
 
 variable iam_role_name {
     type = string
-    default = ""
+    default = null
     description = "The name of an IAM Role to assign to the instance. If left blank, no role will be assigned."
 }
 

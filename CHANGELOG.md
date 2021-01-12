@@ -10,3 +10,7 @@
 
 - [EC2 Instance Connect](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html) is now installed on the Master node.
 - By setting the value of the new `enable_worker_nodes` variable to `true`, a separate Auto-Scaling Group will be provisioned that will house worker nodes. **This functionality is very new and has numerous limitations. Please make sure you read the appropriate section of the [Readme file](README.md#Worker-Node-Autoscaling-Group-Feature) for details.**
+
+# 1.2
+
+- Previously when an empty string was provided for the `iam_role_name` variable, or the variable was not specified, the IAM Instance Profile resource for the agent nodes would be modified on every apply by creating an empty `iam_instance_profile` block. Now the value of the variable defaults to `null` instead of an empty string, and the resource is not modified on every commit. **If the value is manually given as an empty string, the issue will persist.**
