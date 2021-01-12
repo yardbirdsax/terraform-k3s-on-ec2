@@ -19,6 +19,7 @@ This is a [Terraform](https://terraform.io) module that will provision a single 
 | worker_node_min_count | The minimum number of instances to provision for the worker node autoscaling group.
 | worker_node_max_count | The maximum number of instances to provision for the worker node autoscaling group.
 | worker_node_desired_count | The desired number of instances to provision for the worker node autoscaling group.
+| kubeconfig_mode       | The file mode to use when writing the `kubeconfig` file on the master instance. Defaults to 644.
 
 ## Worker-Node Autoscaling Group Feature
 

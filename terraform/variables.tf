@@ -75,3 +75,9 @@ variable worker_node_desired_count {
     default = 0
 }
 
+variable "kubeconfig_mode" {
+  type = string
+  description = "Sets the file mode of the generated KUBECONFIG file on the master k3s instance. Defaults to '600'."
+  default = "600"
+}
+

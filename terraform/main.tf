@@ -37,7 +37,7 @@ EOF
   part {
     content = <<EOF
 #!/bin/bash
-curl -sfL https://get.k3s.io | K3S_TOKEN=${random_string.agent_token.result} sh - 
+curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE=${var.kubeconfig_mode} K3S_TOKEN=${random_string.agent_token.result} sh - 
 apt-get update && \
 apt-get install awscli -y
 EOF

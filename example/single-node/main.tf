@@ -55,6 +55,7 @@ module k3s {
   instance_type = "t3a.small"
   keypair_content = module.ssh_key_pair.public_key
   security_group_ids = [ aws_security_group.sg.id ]
+  kubeconfig_mode = "644"
   
 }
 
