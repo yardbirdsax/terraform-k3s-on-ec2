@@ -14,3 +14,7 @@
 # 1.2
 
 - Previously when an empty string was provided for the `iam_role_name` variable, or the variable was not specified, the IAM Instance Profile resource for the agent nodes would be modified on every apply by creating an empty `iam_instance_profile` block. Now the value of the variable defaults to `null` instead of an empty string, and the resource is not modified on every commit. **If the value is manually given as an empty string, the issue will persist.**
+
+# Unreleased
+- The `worker_node_desired_count` variable now defaults to a value of `0`. Previously, it did not have a default, so deployments would fail where it was not specified.
+- All `template_cloudinit_config` resources have been replaced with `cloudinit_config` since the former is now deprecated.
