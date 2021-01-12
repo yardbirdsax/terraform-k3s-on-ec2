@@ -12,8 +12,11 @@ EOF
 
 resource aws_launch_template agent_launch_template {
   name = "${var.deployment_name}-agent"
-  iam_instance_profile {
-    name = var.iam_role_name == "" ? "" : aws_iam_instance_profile.instance_profile[0].name
+  dynamic "iam_instance_profile" {
+    for_each = var.iam_role_name == "" ? [ var.iam_role_name ] : []
+    content {
+      name = iam_instance_profile.value
+    }
   }
   image_id = data.aws_ami.ubuntu.image_id
   instance_type = var.instance_type
