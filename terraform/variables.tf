@@ -72,5 +72,6 @@ variable worker_node_max_count {
 variable worker_node_desired_count {
     type = number
     description = "The desired number of worker nodes to provision." 
+    default = 0
 }
 
