@@ -34,6 +34,7 @@ resource aws_security_group_rule allow_all_outbound {
 }
 
 module "ssh_key_pair" {
+  # tflint-ignore: terraform_module_pinned_source
   source                = "git::https://github.com/cloudposse/terraform-aws-key-pair.git?ref=master"
   namespace             = local.deployment_name
   stage                 = "prod"
