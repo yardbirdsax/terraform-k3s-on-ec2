@@ -24,7 +24,7 @@ jobs:
         run: |
           tflint -f compact terraform 
           tflint -f compact example/single-node 
-          tflint -f compact example/workder-group
+          tflint -f compact example/worker-group
         working-directory: ${{ matrix.folder }}
       - name: Terraform format check
         uses: dflook/terraform-fmt-check@v1
