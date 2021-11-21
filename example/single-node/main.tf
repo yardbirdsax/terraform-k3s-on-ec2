@@ -46,7 +46,7 @@ module "ssh_key_pair" {
 }
 
 module "k3s" {
-  source = "../../terraform"
+  source = "../../"
   providers = {
     aws = aws
   }
