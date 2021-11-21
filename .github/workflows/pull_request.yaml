@@ -28,4 +28,10 @@ jobs:
         working-directory: ${{ matrix.folder }}
       - name: Terraform format check
         uses: dflook/terraform-fmt-check@v1
-      
+      - name: Generate Terraform module docs
+        uses: terraform-docs/gh-actions@v0.11.0
+        with:
+          working-dir: terraform/
+          output-file: README.md
+          output-method: inject
+          git-push: true
