@@ -1,0 +1,38 @@
+name: Pull Request Pre-Flight Checks
+on:
+  pull_request:
+    paths:
+      - "terraform/**"
+      - "examples/**"
+      - ".github/workflows/pull_request.yaml"
+jobs:
+  validate:
+    name: Validate pull request contents
+    runs-on: ubuntu-20.04
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Setup Terraform linter
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Terraform lint
+        shell: bash
+        run: |
+          tflint -f compact terraform 
+          tflint -f compact example/single-node 
+          tflint -f compact example/worker-group
+        working-directory: ${{ matrix.folder }}
+      - name: Terraform format check
+        uses: dflook/terraform-fmt-check@v1
+      - name: Generate Terraform module docs
+        uses: terraform-docs/gh-actions@v0.11.0
+        with:
+          output-file: README.md
+          output-method: inject
+          git-push: true

@@ -2,25 +2,64 @@
 
 This is a [Terraform](https://terraform.io) module that will provision a single node [k3s](https://k3s.io) cluster using AWS EC2 instances.
 
-## Variables
+<!--- BEGIN_TF_DOCS --->
+## Requirements
 
-| Variable Name         | Description                                                                   |
-------------------------|-------------------------------------------------------------------------------|
-| keypair_path          | The path to the SSH public key file that will be used for access to the instances. If this is specified, the value of `keypair_content` is ignored. |
-| keypair_content          | The content to be used for creating the SSH public key for the instances. If this is specified, `keypair_path` must not be. |
-| deployment_name       | A unique name used to generate things like the instance names.                 |
-| iam_role_name         | The name of an existing IAM role to assign to the instance profiles. If set to `null`, no role will be assigned. |
-| subnet_id             | The ID of the subnet where the instances will be provisioned. If left blank, it will be provisioned in the default subnet of the default VPC. |
-| security_group_ids    | A list of IDs of Security Groups that the instances should be assigned to.     |
-| assign_public_ip      | If set to `true`, the instances will be assigned a public IP. Defaults to `true`. |
-| instance_type         | The AWS [Instance Type](https://aws.amazon.com/ec2/instance-types/) to use when provisioning the instances. Defaults to 't3.small'. |
-| manifest_bucket_path  | The AWS S3 bucket name and path that will be used to download manifest files for auto-installation as per [this documentation](https://rancher.com/docs/k3s/latest/en/advanced/). Should be specified as 'bucket name/folder name/'. The IAM Role assigned to the instance must have GetObject access to this bucket. |
-| enable_worker_nodes   | If set to `true`, a separate autoscaling group will be provisioned for worker nodes. Defaults to `false`.
-| worker_node_min_count | The minimum number of instances to provision for the worker node autoscaling group.
-| worker_node_max_count | The maximum number of instances to provision for the worker node autoscaling group.
-| worker_node_desired_count | The desired number of instances to provision for the worker node autoscaling group.
-| kubeconfig_mode       | The file mode to use when writing the `kubeconfig` file on the master instance. Defaults to 644.
+No requirements.
 
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_cloudinit"></a> [cloudinit](#provider\_cloudinit) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_autoscaling_group.agent_autoscaling_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
+| [aws_iam_instance_profile.instance_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
+| [aws_instance.k3s_instance](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_key_pair.k3s_keypair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
+| [aws_launch_template.agent_launch_template](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
+| [random_string.agent_token](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+| [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [cloudinit_config.agent_user_data](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) | data source |
+| [cloudinit_config.userData](https://registry.terraform.io/providers/hashicorp/cloudinit/latest/docs/data-sources/config) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | The AMI ID to use when provisioning the instance. If left at the default null value, the latest Ubuntu server image is used. | `string` | `null` | no |
+| <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | If set to 'true', a public IP address will be assigned to the instance. | `bool` | `true` | no |
+| <a name="input_deployment_name"></a> [deployment\_name](#input\_deployment\_name) | A unique name used to generate other names for resources, such as instance names. | `string` | `"k3s"` | no |
+| <a name="input_enable_worker_nodes"></a> [enable\_worker\_nodes](#input\_enable\_worker\_nodes) | If set to 'true', a separate autoscaling group will be created for worker nodes. | `bool` | `false` | no |
+| <a name="input_iam_role_name"></a> [iam\_role\_name](#input\_iam\_role\_name) | The name of an IAM Role to assign to the instance. If left blank, no role will be assigned. | `string` | `null` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The AWS EC2 Instance Type to provision the instance as. | `string` | `"t3.small"` | no |
+| <a name="input_keypair_content"></a> [keypair\_content](#input\_keypair\_content) | The raw data to be used for the public key for the instance. If this is used, no value must be specified for 'keypair\_path'. | `string` | `""` | no |
+| <a name="input_keypair_path"></a> [keypair\_path](#input\_keypair\_path) | The path to the public key to use for the instance. | `string` | `""` | no |
+| <a name="input_kubeconfig_mode"></a> [kubeconfig\_mode](#input\_kubeconfig\_mode) | Sets the file mode of the generated KUBECONFIG file on the master k3s instance. Defaults to '600'. | `string` | `"600"` | no |
+| <a name="input_manifest_bucket_path"></a> [manifest\_bucket\_path](#input\_manifest\_bucket\_path) | The AWS S3 bucket name and path that will be used to download manifest files for auto-installation as per [this documentation](https://rancher.com/docs/k3s/latest/en/advanced/). Should be specified as 'bucket name/folder name/'. The IAM Role assigned to the instance must have GetObject access to this bucket. | `string` | `""` | no |
+| <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | A list of Security Group IDs to assign to the instance. | `list(string)` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of a VPC subnet to assign the instance to. If left blank, the instance will be provisioned in the default subnet of the default VPC. | `string` | `""` | no |
+| <a name="input_worker_node_desired_count"></a> [worker\_node\_desired\_count](#input\_worker\_node\_desired\_count) | The desired number of worker nodes to provision. | `number` | `0` | no |
+| <a name="input_worker_node_max_count"></a> [worker\_node\_max\_count](#input\_worker\_node\_max\_count) | The maximum number of worker node instances to provsion. | `number` | `0` | no |
+| <a name="input_worker_node_min_count"></a> [worker\_node\_min\_count](#input\_worker\_node\_min\_count) | The minimum number of worker node instances to provision. | `number` | `0` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_instance"></a> [instance](#output\_instance) | n/a |
+
+<!--- END_TF_DOCS --->
 ## Worker-Node Autoscaling Group Feature
 
 Currently the module allows for the provisioning of a separate autoscaling group for worker (non master) nodes. This is a new feature and has the following caveats / limitations:
