@@ -2,9 +2,9 @@
 
 This is a [Terraform](https://terraform.io) module that will provision a single node [k3s](https://k3s.io) cluster using AWS EC2 instances.
 
-<!-- BEGIN_TF_DOCS -->
+<!--- BEGIN_TF_DOCS --->
 
-<!-- END_TF_DOCS -->
+<!--- END_TF_DOCS --->
 ## Worker-Node Autoscaling Group Feature
 
 Currently the module allows for the provisioning of a separate autoscaling group for worker (non master) nodes. This is a new feature and has the following caveats / limitations:
