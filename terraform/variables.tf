@@ -81,3 +81,9 @@ variable "kubeconfig_mode" {
   default = "600"
 }
 
+variable "ami_id" {
+  type = string
+  description = "The AMI ID to use when provisioning the instance. If left at the default null value, the latest Ubuntu server image is used."
+  default = null
+}
+

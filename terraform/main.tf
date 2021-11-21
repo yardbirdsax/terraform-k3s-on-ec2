@@ -63,7 +63,7 @@ EOF
 }
 
 resource aws_instance k3s_instance {
-  ami = data.aws_ami.ubuntu.id
+  ami = var.ami_id == null ? data.aws_ami.ubuntu.id : var.ami_id
   associate_public_ip_address = var.assign_public_ip
   instance_type = var.instance_type
   key_name = aws_key_pair.k3s_keypair.key_name
