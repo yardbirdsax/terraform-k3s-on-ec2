@@ -36,3 +36,7 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: true
+      - name: Validate examples
+        run: |
+          terraform init -backend=false example/single-node && terraform validate example/single-node
+          terraform init -backend=false example/worker-group && terraform validate example/worker-group
