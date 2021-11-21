@@ -36,7 +36,11 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: true
-      - name: Validate examples
-        run: |
-          terraform init -backend=false example/single-node && terraform validate example/single-node
-          terraform init -backend=false example/worker-group && terraform validate example/worker-group
+      - name: Validate single node example
+        uses: dflook/terraform-validate@v1
+        with:
+          path: example/single-node
+      - name: Validate worker group example
+        uses: dflook/terraform-validate@v1
+        with:
+          path: example/worker-group          
