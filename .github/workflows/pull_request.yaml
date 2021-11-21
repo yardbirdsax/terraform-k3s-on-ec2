@@ -2,7 +2,7 @@ name: Pull Request Pre-Flight Checks
 on:
   pull_request:
     paths:
-      - "terraform/**"
+      - "*.tf"
       - "examples/**"
       - ".github/workflows/pull_request.yaml"
 jobs:
@@ -36,3 +36,11 @@ jobs:
           output-file: README.md
           output-method: inject
           git-push: true
+      - name: Validate single node example
+        uses: dflook/terraform-validate@v1
+        with:
+          path: example/single-node
+      - name: Validate worker group example
+        uses: dflook/terraform-validate@v1
+        with:
+          path: example/worker-group          

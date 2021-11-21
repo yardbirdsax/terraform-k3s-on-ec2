@@ -19,3 +19,7 @@
 - The `worker_node_desired_count` variable now defaults to a value of `0`. Previously, it did not have a default, so deployments would fail where it was not specified.
 - All `template_cloudinit_config` resources have been replaced with `cloudinit_config` since the former is now deprecated.
 - A new variable is introduced called `kubeconfig_write`, which allows you to specify the file mode used when writing the `kubeconfig` file on the master instance.
+
+# Unreleased
+- You are now able to specify an AMI ID which will override the base image selected (the latest Ubuntu Server).
+- If you do not specify a value for either the `keypair_content` nor `keypair_path` variables, no AWS keypair is created or used for the provisioned instances.
