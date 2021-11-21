@@ -16,6 +16,7 @@ resource "random_string" "agent_token" {
 resource "aws_key_pair" "k3s_keypair" {
   key_name   = var.deployment_name
   public_key = var.keypair_path == "" ? var.keypair_content : file(var.keypair_path)
+  count      = var.keypair_path == "" && var.keypair_content == "" ? 0 : 1
 }
 
 resource "aws_iam_instance_profile" "instance_profile" {
@@ -66,7 +67,7 @@ resource "aws_instance" "k3s_instance" {
   ami                         = var.ami_id == null ? data.aws_ami.ubuntu.id : var.ami_id
   associate_public_ip_address = var.assign_public_ip
   instance_type               = var.instance_type
-  key_name                    = aws_key_pair.k3s_keypair.key_name
+  key_name                    = var.keypair_path == "" && var.keypair_content == "" ? null : aws_key_pair.k3s_keypair[0].key_name
   iam_instance_profile        = var.iam_role_name == null ? null : aws_iam_instance_profile.instance_profile[0].name
   subnet_id                   = var.subnet_id == "" ? "" : var.subnet_id
   vpc_security_group_ids      = var.security_group_ids
