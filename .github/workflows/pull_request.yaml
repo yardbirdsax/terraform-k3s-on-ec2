@@ -21,6 +21,7 @@ jobs:
           - example/single-node
           - example/worker-group
     steps:
+      - uses: actions/checkout@v2
       - name: Setup Terraform linter
         uses: terraform-linters/setup-tflint@v1
         with:
