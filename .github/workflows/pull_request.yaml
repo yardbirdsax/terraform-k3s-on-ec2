@@ -2,7 +2,7 @@ name: Pull Request Pre-Flight Checks
 on:
   pull_request:
     paths:
-      - "terraform/**"
+      - "*.tf"
       - "examples/**"
       - ".github/workflows/pull_request.yaml"
 jobs:
