@@ -13,13 +13,6 @@ jobs:
       id-token: write
       contents: write
       pull-requests: write
-    strategy:
-      fail-fast: false
-      matrix:
-        folder:
-          - terraform/
-          - example/single-node
-          - example/worker-group
     steps:
       - uses: actions/checkout@v2
       - name: Setup Terraform linter
@@ -28,10 +21,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Terraform lint
         shell: bash
-        run: tflint -f compact
+        run: |
+          tflint -f compact terraform 
+          tflint -f compact example/single-node 
+          tflint -f compact example/workder-group
         working-directory: ${{ matrix.folder }}
       - name: Terraform format check
         uses: dflook/terraform-fmt-check@v1
-        with:
-          path: ${{ matrix.folder }}
       
